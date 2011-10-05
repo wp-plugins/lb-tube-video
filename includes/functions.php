@@ -3,39 +3,31 @@ if (!session_id())
     session_start();
 if(!isset($_SESSION['tube_video_user_state']))
 	$_SESSION['tube_video_user_state'] = '';
-
-
 function tube_video_get_user_state_from_request($key, $request, $default, $type = null){
 	$old_state = tube_video_get_user_state( $key );
 	$cur_state = (!is_null($old_state)) ? $old_state : $default;
 	$new_state = tube_video_get_request($request, null);
-
 	// Save the new value only if it was set in this request
 	if ($new_state !== null) {
 		tube_video_set_user_state($key, $new_state);
 	} else {
 		$new_state = $cur_state;
 	}
-
 	return $new_state;
 }
-
 function tube_video_get_user_state($key, $default = null){
 	$states = json_decode($_SESSION['tube_video_user_state']);
 	return $states->$key ? $states->$key : $default;
 }
-
 function tube_video_set_user_state($key, $value){
 	$states = json_decode($_SESSION['tube_video_user_state']);
 	if(!states) $states = new stdClass();
 	$states->$key = $value;
 	$_SESSION['tube_video_user_state'] = json_encode($states);
 }
-
 function tube_video_get_request($key, $default = ""){
 	return $_REQUEST[$key] ? $_REQUEST[$key] : $default;
 }
-
 function tube_video_to_object($array){
 	$ret = new stdClass();
 	if(is_array($array)){
@@ -51,12 +43,10 @@ function tube_video_to_object($array){
 	}
 	return new stdClass();
 }
-
 function tube_video_update_table($table, $data){
 	global $wpdb;	
 	
 	$data = tube_video_to_object($data);
-
 	$query = "
 		SELECT id
 		FROM {$table}
@@ -107,7 +97,6 @@ function tube_video_get_cache($key){
 }
 function tube_video_set_cache($key, $value){
 	if($cache = tube_video_get_cache($key)){
-
 	}
 }
 function tube_video_exists_feed($fid, $id){
@@ -322,7 +311,6 @@ function tube_video_get_videos($rss, $start = 0, $limit = null){
 	$ret->items = array();
 	if($feed->init()){
 		foreach($feed->get_items() as $item){			
-			
 			$new_item = tube_video_parse_item_info($item);
 			$ret->items[] = $new_item;
 		}

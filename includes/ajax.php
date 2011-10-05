@@ -1,23 +1,14 @@
 <?php 
-function tube_video_get_feed_board(){
+function tube_video_get_feed_board(){	
 	require_once(TUBE_VIDEO_LIB.'/simplepie/simplepie.php');
 	global $wpdb;
 	$sql = "
-		SELECT *
+		SELECT urls
 		FROM {$wpdb->tube_video_feeds}
 		WHERE id = '".$_POST['id']."'
 	";
-	$result = $wpdb->get_row($sql);	
-	$unique_id = tube_video_get_id($result->urls);
-	?>
-    <?php
-	$sql = "
-		SELECT *
-		FROM {$wpdb->tube_video_contents}
-		WHERE feed_id = '".$result->id."'
-	";
-	$contents = $wpdb->get_results($sql);
-	$total = count($contents);
+	$result = $wpdb->get_var($sql);	
+	$videos = tube_video_get_videos($result);		
 	?>
     <style>
 	
@@ -25,11 +16,11 @@ function tube_video_get_feed_board(){
     <table width="100%" cellpadding="5" class="rss-board">
     	<tr>
         	<td width="100">RSS</td>
-            <td><a href="<?php echo $result->urls;?>" target="_blank"><?php echo $result->urls;?></a></td>
+            <td><a href="<?php echo $result;?>" target="_blank"><?php echo $result;?></a></td>
         </tr>
         <tr>
         	<td>Videos</td>
-            <td><span id="total_new_<?php echo $unique_id;?>"><?php echo $total;?></span></td>
+            <td><span id="total_new"><?php echo $videos->total;?></span></td>
         </tr>
         <tr>
         	<td></td>
@@ -37,15 +28,10 @@ function tube_video_get_feed_board(){
             	<div id="result"></div>            
                 <ul id="recent-parse-content">
                 <?php 
-				$query = "
-					SELECT *
-					FROM {$wpdb->tube_video_contents} 
-					WHERE feed_id = {$result->id}
-				";
-				$results = $wpdb->get_results($query);
-				foreach($results as $item){
-					$obj = json_decode(base64_decode($item->feed_content));
-
+				
+				for($i = 0; $i < $videos->total; $i++){
+					
+					$obj = ($videos->items[$i]);
 				?>
                 	<li>
                     	<?php echo $obj->title;?><br />
@@ -203,9 +189,7 @@ function tube_video_get_feed($id){
 function tube_video_get_contents(){
 	global $wpdb;
 	$feed_id = tube_video_get_request('feed_id');
-
 	$feed_info = tube_video_get_feed($feed_id);
-
 	$try_parse = tube_video_get_request('try_parse');
 	$start = tube_video_get_request('start', 0);
 	$sql = "
