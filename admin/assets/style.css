@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+#icon-wp-grabcontent{
+	background-image:url(images/feed-32x32.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+
+.rss-board{}
+.rss-board td{
+	padding:5px 0;	
+}
+span.key{
+	display:inline-block;
+	width:80px;
+	text-align:left;	
+}
+#recent-parse-content{
+	margin:0;
+	padding:0;	
+	max-height:250px;
+	overflow:auto;
+	list-style:none;
+}
+#recent-parse-content li{
+	margin:3px 0;
+	padding:0; 	
+	list-style:inside square;
+	list-style:none;
+}
+#recent-parse-content li a{
+	text-decoration:none;
+	font-size:11px;
+	color:#179B1B;			
+}
+#recent-parse-content li.error a{		
+	color:#FF0000;	
+}
+#recent-parse-content span.source-link{
+	display:inline-block;
+	width:300px;
+	overflow:hidden;	
+	white-space:nowrap;
+}
+#recent-parse-content li span.parse-status{
+	font-size:11px;
+	background-color:#179B1B;	
+	color:#FFF;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding:3px;
+	margin-left:5px;
+}
+#recent-parse-content li.error span.parse-status{
+	background-color:#FF0000;	
+}
