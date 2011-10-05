@@ -41,7 +41,6 @@ class TubeVideFeeds{
 		$list_table = new WP_List_Table();		
 		
 		$limit = tube_video_get_user_state_from_request('tube_video_feeds_per_page', 'feeds_per_page', 10);	
-
 		if($limit)		
 			$page = $list_table->get_pagenum();
 		else $page=1;
@@ -95,7 +94,6 @@ class TubeVideFeeds{
                 </td>
                 <td>
                 	<a href="admin.php?page=tube-video-manage-feeds&task=new" class="button">Add New</a>
-                    <button type="button" class="button" onclick="cron.getNewFeeds();">Refresh</button>
                 </td>
             </tr>
         </table>
@@ -140,10 +138,10 @@ class TubeVideFeeds{
                 	<td align="right"><?php echo ($page-1)*$limit+$i+1;?></td>
                     <td align="center"><input type="checkbox" name="id[]" value="<?php echo $v->id;?>" class="chk-row" /></td>
                     <td>
-                    	<div class="feed-title<?php echo $v->total_videos ? ' has-item' : '';?>" id="title_<?php echo $to_id;?>">
+                    	<div class="feed-title<?php echo $videos->total ? ' has-item' : '';?>" id="title_<?php echo $to_id;?>">
                     	<a href="<?php echo $v->id;?>">
 							<?php echo $v->title;?><span id="count_<?php echo $to_id;?>">
-                            <?php echo $v->total_videos ? ' ('.$videos->total.')' : '';?>
+                            <?php echo $videos->total ? ' ('.$videos->total.')' : '';?>
                             </span>
                         </a>					
                         </div>	                    
@@ -241,15 +239,12 @@ class TubeVideFeeds{
 		$sql = "
 			SELECT f.id
 			FROM {$wpdb->tube_video_feeds} f
-			LEFT JOIN {$wpdb->tube_video_contents} c ON c.feed_id = f.id
 			GROUP BY f.id
 		";
 		$total = count($wpdb->get_results($sql));
 		$sql = "
-			SELECT f.*, count(c.id) as total_videos
+			SELECT f.*
 			FROM {$wpdb->tube_video_feeds} f
-			LEFT JOIN {$wpdb->tube_video_contents} c ON c.feed_id = f.id
-			GROUP BY f.id
 			ORDER BY title ASC
 			LIMIT $start, $limit			
 		";
@@ -315,5 +310,4 @@ class TubeVideFeeds{
 		return $html;
 	}
 }
-
 $manage_feeds = new TubeVideFeeds();
