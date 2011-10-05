@@ -12,6 +12,15 @@ Show and play video from Youtube RSS in a Lightbox or Post/Page
 
 Show and play video from Youtube RSS in a Lightbox or Post/Page
 
+lb Tube Video support multiple widgets on a site with each widget is an RSS from YouTube.
+= Features =
+* Customize the width/height of thumbnail
+* Limit num of videos on a widget
+* Support play video on a Lightbox/Post/Page or link to Youtube
+* Customize the width/height of video when play on Post/Page
+* Show video's length, users rating, users viewed
+* And more...
+
 == Installation ==
 
 1. Upload `lb-tube-video` folder to the `/wp-content/plugins/` directory
@@ -19,6 +28,12 @@ Show and play video from Youtube RSS in a Lightbox or Post/Page
 1. Go to "Tube Video" in left pane
 
 == Screenshots ==
+
+1.Manage Feeds
+2.Widget Options
+3.Show Videos in Widget
+4.Play video in a Lightbox
+5.Play video in a Post/Page
 
 == Changelog ==
 
