@@ -29,11 +29,11 @@ lb Tube Video support multiple widgets on a site with each widget is an RSS from
 
 == Screenshots ==
 
-1.Manage Feeds
-2.Widget Options
-3.Show Videos in Widget
-4.Play video in a Lightbox
-5.Play video in a Post/Page
+1. Manage Feeds
+2. Widget Options
+3. Show Videos in Widget
+4. Play video in a Lightbox
+5. Play video in a Post/Page
 
 == Changelog ==
 
